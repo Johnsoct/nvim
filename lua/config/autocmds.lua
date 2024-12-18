@@ -18,26 +18,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
 	end,
 })
 
--- Custom indentation per FileType
-vim.api.nvim_create_autocmd("FileType", {
-	group = augroup("CustomIndentation"),
-	pattern = {
-		"html",
-		"json",
-                "lua",
-		"md",
-		"pug",
-                "vue",
-		"yaml",
-	},
-	callback = function()
-		vim.opt_local.shiftwidth = 4
-		vim.opt_local.tabstop = 4
-		vim.opt_local.softtabstop = 4
-		vim.opt_local.expandtab = true -- use spaces instead of tabs
-	end,
-})
-
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.go",
 	callback = function()
