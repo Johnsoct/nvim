@@ -1,57 +1,48 @@
 return {
     {
         "neovim/nvim-lspconfig",
-            -- other settings removed for brevity
-                opts = {
-                    ---@type lspconfig.options
-                        servers = {
-                            eslint = {
-                                settings = {
-                                    -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-                                    workingDirectories = { mode = "auto" },
-                                    format = auto_format,
-                                },
-                            },
+            opts = {
+                servers = {
+                    eslint = {
+                        settings = {
+                            workingDirectories = { mode = "auto" },
+                            format = auto_format,
                         },
-                    setup = {
-                        eslint = function()
-                            if not auto_format then
-                                return
-                            end
-
-                            local function get_client(buf)
-                                return LazyVim.lsp.get_clients({ name = "eslint_d", bufnr = buf })[1]
-                            end
-
-                            local formatter = LazyVim.lsp.formatter({
-                                name = "eslint: lsp",
-                                primary = false,
-                                priority = 200,
-                                filter = "eslint",
-                            })
-
-                            -- Use EslintFixAll on Neovim < 0.10.0
-                            if not pcall(require, "vim.lsp._dynamic") then
-                                formatter.name = "eslint: EslintFixAll"
-                                formatter.sources = function(buf)
-                                    local client = get_client(buf)
-                                    return client and { "eslint" } or {}
-                                end
-                                formatter.format = function(buf)
-                                    local client = get_client(buf)
-                                    if client then
-                                        local diag = vim.diagnostic.get(buf, { namespace = vim.lsp.diagnostic.get_namespace(client.id) })
-                                        if #diag > 0 then
-                                            vim.cmd("EslintFixAll")
-                                        end
-                                    end
-                                end
-                            end
-
-                            -- register the formatter with LazyVim
-                            LazyVim.format.register(formatter)
-                        end,
                     },
                 },
+                setup = {
+                    eslint = function(_, opts)
+                        -- Disable LSP formatting if you want to use null-ls for formatting
+                        opts.on_attach = function(client, bufnr)
+                            client.server_capabilities.documentFormattingProvider = false
+                        end
+                    end,
+                },
+            },
+    },
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        opts = function(_, opts)
+            local null_ls = require("null-ls")
+            opts.sources = opts.sources or {}
+
+            -- Add eslint_d for formatting and diagnostics
+            vim.list_extend(opts.sources, {
+                null_ls.builtins.formatting.eslint_d.with({
+                    -- Only enabled ESLint integration if eslint file is found
+                    condition = function(utils)
+                        return utils.root_has_file({ ".eslintrc", ".eslintrc.json", ".eslintrc.js", "eslint.config.js" })
+                    end,
+                }),
+                null_ls.builtins.diagnostics.eslint_d.with({
+                    condition = function(utils)
+                        return utils.root_has_file({ ".eslintrc", ".eslintrc.json", ".eslintrc.js" , "eslint.config.js" })
+                    end,
+                }),
+            })
+
+            -- Set the timeout for null-ls
+            opts.timeout_ms = 5000
+        end,
     }
 }
