@@ -32,7 +32,8 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
 	spec = {
 		-- github.com/folke/tokyonight.nvim (clones the repo into the nvim runtime path)
-		{ "folke/tokyonight.nvim", config = function() vim.cmd.colorscheme "tokyonight-storm" end },
+		-- { "folke/tokyonight.nvim", config = function() vim.cmd.colorscheme "tokyonight-storm" end },
+		{ "sainnhe/everforest", config = function() vim.cmd.colorscheme "everforest" end },
 		-- import your plugins
 		{ import = "config.plugins" },
 	},
