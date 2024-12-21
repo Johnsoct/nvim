@@ -12,19 +12,40 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "css-lsp",
-                    "eslint-lsp",
-                    "html-lsp",
-                    "json-lsp",
+                    "bashls",
+                    "cssls",
+                    "css_variables",
+                    "cssmodules_ls",
+                    "custom_elements_ls",
+                    "eslint",
+                    "gopls",
+                    "html",
+                    "jsonls",
+                    "lua_ls",
                     "marksman",
+                    "somesass_ls",
+                    "sqlls",
                     "sqls",
-                    "stylelint-lsp",
-                    "typescript-language-server",
+                    "stylelint_lsp",
+                    "ts_ls",
                     "vtsls",
-                    "vue-language-server",
-                    "yaml-language-server",
+                    "volar",
                 },
             })
+
+            require("mason-lspconfig").setup_handlers {
+                -- The first entry (without a key) will be the default handler
+                -- and will be called for each installed server that doesn't have
+                -- a dedicated handler.
+                function(server_name) -- default handler (optional)
+                    require("lspconfig")[server_name].setup {}
+                end,
+                -- Next, you can provide a dedicated handler for specific servers.
+                -- For example, a handler override for the `rust_analyzer`:
+                -- ["vtsls"] = function()
+                -- require("vtsls").setup {}
+                -- end
+            }
         end,
     },
     {
@@ -44,7 +65,9 @@ return {
             },
         },
         config = function()
-            require("lspconfig").lua_ls.setup {}
+            local lsp = require("lspconfig")
+
+            lsp.lua_ls.setup {}
 
             -- Create autocmd on LspAttach: key config entry point for what the lsp will do in any given buffer
             -- i.e. when we attach a file (Editor) and any given language server
