@@ -16,7 +16,6 @@ return {
                     "cssls",
                     "css_variables",
                     "cssmodules_ls",
-                    "custom_elements_ls",
                     "eslint",
                     "gopls",
                     "html",
@@ -33,19 +32,19 @@ return {
                 },
             })
 
-            require("mason-lspconfig").setup_handlers {
+            require("mason-lspconfig").setup_handlers({
                 -- The first entry (without a key) will be the default handler
                 -- and will be called for each installed server that doesn't have
                 -- a dedicated handler.
                 function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {}
+                    require("lspconfig")[server_name].setup({})
                 end,
                 -- Next, you can provide a dedicated handler for specific servers.
                 -- For example, a handler override for the `rust_analyzer`:
                 -- ["vtsls"] = function()
                 -- require("vtsls").setup {}
                 -- end
-            }
+            })
         end,
     },
     {
@@ -65,26 +64,33 @@ return {
             },
         },
         config = function()
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
             local lsp = require("lspconfig")
 
-            lsp.lua_ls.setup {}
+            lsp.lua_ls.setup({ capabilities = capabilities })
+
+            lsp.eslint.setup({
+                root_dir = lsp.util.root_pattern(".eslintrc*", "eslint.config.*", "package.json"),
+            })
 
             -- Create autocmd on LspAttach: key config entry point for what the lsp will do in any given buffer
             -- i.e. when we attach a file (Editor) and any given language server
             -- (the lack of a buffer argument inside of the {} for LspAttach implies it happens every single
             -- time we attach a file with a language server
-            vim.api.nvim_create_autocmd('LspAttach', {
+            vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function(args)
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    if not client then return end
+                    if not client then
+                        return
+                    end
 
                     -- Does this client actually support formatting, and if it does
                     -- create another autocmd for BufWritePre with a buffer parameter
                     -- (i.e. only listen to these events (textDocument/formatting) inside of this current buffer
                     -- so you're not calling format on an open file that doesn't have an attached LSP)
-                    if client:supports_method('textDocument/formatting') then
+                    if client:supports_method("textDocument/formatting") then
                         -- Format the current buffer on save
-                        vim.api.nvim_create_autocmd('BufWritePre', {
+                        vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = args.buf,
                             callback = function()
                                 vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
@@ -94,5 +100,5 @@ return {
                 end,
             })
         end,
-    }
+    },
 }

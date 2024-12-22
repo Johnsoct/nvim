@@ -9,6 +9,7 @@ return {
         config = function()
             local api = require("nvim-tree.api")
             vim.keymap.set("n", "<space>e", api.tree.toggle)
+            vim.keymap.set("n", "<space>fe", api.tree.focus)
 
             require("nvim-tree").setup({
                 on_attach = my_on_attach,

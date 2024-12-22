@@ -19,7 +19,7 @@ return {
                 markdown = { "markdownlint" },
                 sass = { "stylelint" },
                 scss = { "stylelint" },
-                typescript = { "eslint" },
+                typescript = { "eslint_d" },
                 vue = { "eslint_d" },
             }
 
