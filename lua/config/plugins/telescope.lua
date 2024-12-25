@@ -28,9 +28,10 @@ return {
             -----------------------
             -- Telescope keymaps --
             -----------------------
-            vim.keymap.set("n", "<space>fh", tsbiht)    -- find help documentation
-            vim.keymap.set("n", "<space>fd", tsbiff)    -- find within cwd
-            vim.keymap.set("n", "<space>en", function() -- find neovim config files
+            vim.keymap.set("n", "<space><space>", tsbiht) -- find help documentation
+            vim.keymap.set("n", "<space>fh", tsbiht)      -- find help documentation
+            vim.keymap.set("n", "<space>fd", tsbiff)      -- find within cwd
+            vim.keymap.set("n", "<space>en", function()   -- find neovim config files
                 tsbiff({
                     cwd = vim.fn.stdpath("config"),
                 })
