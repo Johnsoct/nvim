@@ -1,6 +1,6 @@
 local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
-    local suffix = (" \u0032\u0031\u0045\u0039 %d "):format(endLnum - lnum)
+    local suffix = (" 🖐🏼 %d "):format(endLnum - lnum)
     local sufWidth = vim.fn.strdisplaywidth(suffix)
     local targetWidth = width - sufWidth
     local curWidth = 0
