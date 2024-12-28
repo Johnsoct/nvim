@@ -8,6 +8,8 @@ return {
         config = function()
             local lint = require("lint")
 
+            vim.env.ESLINT_D_PPID = vim.fn.getpid()
+
             lint.linters_by_ft = {
                 bash = { "bash" },
                 css = { "stylelint" },
