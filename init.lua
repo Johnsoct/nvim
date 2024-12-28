@@ -1,9 +1,6 @@
 require("config.lazy")
 
 vim.opt.clipboard = "unnamedplus"
-vim.opt.foldenable = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.shiftwidth = 4
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -35,22 +32,3 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Optionally enabled 24-bit colour
 vim.opt.termguicolors = true
-
----------------
---- FOLDING ---
----------------
-vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
-    pattern = "*",
-    callback = function()
-        vim.defer_fn(function()
-            vim.cmd("normal! zR")
-        end, 10) -- Delay slightly (10ms) to ensure folds are calculated
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = "*",
-    callback = function()
-        vim.cmd("normal! zx") -- recompute folds
-    end,
-})
