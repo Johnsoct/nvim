@@ -16,7 +16,6 @@ return {
                     "cssls",
                     "css_variables",
                     "cssmodules_ls",
-                    "eslint",
                     "gopls",
                     "html",
                     "jsonls",
@@ -27,7 +26,6 @@ return {
                     "sqls",
                     "stylelint_lsp",
                     "ts_ls",
-                    "vtsls",
                     "volar",
                 },
             })
@@ -68,10 +66,6 @@ return {
             local lsp = require("lspconfig")
 
             lsp.lua_ls.setup({ capabilities = capabilities })
-
-            lsp.eslint.setup({
-                root_dir = lsp.util.root_pattern(".eslintrc*", "eslint.config.*", "package.json"),
-            })
 
             -- Create autocmd on LspAttach: key config entry point for what the lsp will do in any given buffer
             -- i.e. when we attach a file (Editor) and any given language server
