@@ -66,6 +66,31 @@ return {
             local lsp = require("lspconfig")
 
             lsp.lua_ls.setup({ capabilities = capabilities })
+            lsp.ts_ls.setup({
+                on_attach = function(client, bufnr)
+                    -- Disable tsserver's own diagnostics
+                    client.handlers["textDocument/publishDiagnostics"] = function() end
+                end,
+            })
+            lsp.cssmodules_ls.setup({
+                filetypes = {
+                    "javascript",
+                    "javascriptreact",
+                    "typescript",
+                    "typescriptreact",
+                    "vue",
+                    "css",
+                    "scss",
+                    "sass",
+                },
+                -- on_attach = function(client)
+                --     -- avoid race conditions with other LSPs, such as ts_ls, for go-to-definition support
+                --     client.server_capabilities.definitionProvider = false
+                -- end,
+            })
+            lsp.custom_elements_ls.setup({
+                filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+            })
 
             -- Create autocmd on LspAttach: key config entry point for what the lsp will do in any given buffer
             -- i.e. when we attach a file (Editor) and any given language server
