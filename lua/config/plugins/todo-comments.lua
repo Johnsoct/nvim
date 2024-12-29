@@ -21,6 +21,7 @@ return {
                 NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
                 TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
             },
+            -- TODO: test 1
             gui_style = {
                 fg = "NONE",       -- The gui style to use for the fg highlight group.
                 bg = "BOLD",       -- The gui style to use for the bg highlight group.
@@ -42,6 +43,7 @@ return {
                 max_line_len = 400,              -- ignore lines longer than this
                 exclude = {},                    -- list of file types to exclude highlighting
             },
+            -- TODO: test 2
             -- list of named colors where we try to extract the guifg from the
             -- list of highlight groups or use the hex color if hl not found as a fallback
             colors = {
@@ -67,5 +69,16 @@ return {
                 -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
             },
         },
+        config = function()
+            require("todo-comments").setup()
+
+            vim.keymap.set("n", "]t", function()
+                require("todo-comments").jump_next()
+            end, { desc = "Next todo comment" })
+
+            vim.keymap.set("n", "[t", function()
+                require("todo-comments").jump_prev()
+            end, { desc = "Previous todo comment" })
+        end,
     },
 }
