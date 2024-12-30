@@ -10,6 +10,7 @@ return {
             local ts = require("telescope")
             local tsbiff = require("telescope.builtin").find_files
             local tsbiht = require("telescope.builtin").help_tags
+            local tsgs = require("telescope.builtin").grep_string
 
             -----------------------
             -- Telescope options --
@@ -29,7 +30,7 @@ return {
             -- Telescope keymaps --
             -----------------------
             vim.keymap.set("n", "<space><space>", tsbiht) -- find help documentation
-            vim.keymap.set("n", "<space>fh", tsbiht)      -- find help documentation
+            vim.keymap.set("n", "<space>fs", tsgs)        -- find help documentation
             vim.keymap.set("n", "<space>fd", tsbiff)      -- find within cwd
             vim.keymap.set("n", "<space>en", function()   -- find neovim config files
                 tsbiff({
