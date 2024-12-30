@@ -37,6 +37,7 @@ return {
                     cwd = vim.fn.stdpath("config"),
                 })
             end)
+            vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { noremap = true, silent = true })
         end,
     },
 }

@@ -118,6 +118,8 @@ return {
                     end
                 end,
             })
+
+            -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
         end,
     },
 }
