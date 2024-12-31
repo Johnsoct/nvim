@@ -14,17 +14,13 @@ return {
                 ensure_installed = {
                     "bashls",
                     "cssls",
-                    "css_variables",
-                    "cssmodules_ls",
                     "gopls",
                     "html",
                     "jsonls",
                     "lua_ls",
                     "marksman",
-                    "somesass_ls",
                     "sqlls",
                     "sqls",
-                    "stylelint_lsp",
                     "ts_ls",
                     "volar",
                 },
@@ -72,22 +68,29 @@ return {
                     client.handlers["textDocument/publishDiagnostics"] = function() end
                 end,
             })
-            lsp.cssmodules_ls.setup({
-                filetypes = {
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                    "vue",
-                    "css",
-                    "scss",
-                    "sass",
+            lsp.cssls.setup({
+                filetypes = { "css", "sass", "scss" },
+                settings = {
+                    css = { validate = true },
+                    scss = { validate = true },
                 },
-                -- on_attach = function(client)
-                --     -- avoid race conditions with other LSPs, such as ts_ls, for go-to-definition support
-                --     client.server_capabilities.definitionProvider = false
-                -- end,
             })
+            -- lsp.cssmodules_ls.setup({
+            --     filetypes = {
+            --         "javascript",
+            --         "javascriptreact",
+            --         "typescript",
+            --         "typescriptreact",
+            --         "vue",
+            --         "css",
+            --         "scss",
+            --         "sass",
+            --     },
+            -- on_attach = function(client)
+            --     -- avoid race conditions with other LSPs, such as ts_ls, for go-to-definition support
+            --     client.server_capabilities.definitionProvider = false
+            -- end,
+            -- })
             lsp.custom_elements_ls.setup({
                 filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
             })

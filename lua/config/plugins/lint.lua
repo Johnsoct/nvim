@@ -12,15 +12,15 @@ return {
 
             lint.linters_by_ft = {
                 bash = { "bash" },
-                css = { "stylelint" },
+                -- css = { "cssls" },
                 go = { "golangcilint" },
                 html = { "htmlhint" },
                 javascript = { "eslint_d" },
                 json = { "jsonlint" },
                 lua = { "luacheck" },
                 markdown = { "markdownlint" },
-                sass = { "stylelint" },
-                scss = { "stylelint" },
+                -- sass = { "cssls" },
+                -- scss = { "cssls"},
                 typescript = { "eslint_d" },
                 vue = { "eslint_d" },
             }
