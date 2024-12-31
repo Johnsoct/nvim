@@ -68,12 +68,13 @@ return {
                     client.handlers["textDocument/publishDiagnostics"] = function() end
                 end,
             })
+
+            -- Enable snippet capability for completion
+            local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
+            csslsCapabilities.textDocument.completion.completionItem.snippetSupport = true
             lsp.cssls.setup({
+                capabilities = csslsCapabilities,
                 filetypes = { "css", "sass", "scss" },
-                settings = {
-                    css = { validate = true },
-                    scss = { validate = true },
-                },
             })
             -- lsp.cssmodules_ls.setup({
             --     filetypes = {

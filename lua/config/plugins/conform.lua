@@ -31,7 +31,6 @@ return {
                     json = { "fixjson" },
                     lua = { "stylua" },
                     markdown = { "markdownfmt" },
-                    sass = { "prettierd", "prettier", lsp_format = "fallback" },
                     scss = { "prettierd", "prettier", lsp_format = "fallback" },
                     sql = { "sqlfmt" },
                     typescript = { "eslint_d" },
