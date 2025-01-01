@@ -24,14 +24,14 @@ return {
                     -- javascript = { "prettierd", "prettier", stop_after_first = true }
 
                     bash = { "shfmt" },
-                    css = { "prettierd", "prettier", lsp_format = "fallback" },
+                    -- css = { "prettierd", "prettier", lsp_format = "fallback" },
                     go = { "goimports", "gofumpt" },
                     html = { "djlint" },
                     javascript = { "eslint_d" },
                     json = { "fixjson" },
                     lua = { "stylua" },
                     markdown = { "markdownfmt" },
-                    scss = { "prettierd", "prettier", lsp_format = "fallback" },
+                    -- scss = { "prettierd", "prettier", lsp_format = "fallback" },
                     sql = { "sqlfmt" },
                     typescript = { "eslint_d" },
                     vue = { "eslint_d" },

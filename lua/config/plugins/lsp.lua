@@ -112,6 +112,7 @@ return {
                     -- (i.e. only listen to these events (textDocument/formatting) inside of this current buffer
                     -- so you're not calling format on an open file that doesn't have an attached LSP)
                     if client:supports_method("textDocument/formatting") then
+                        print(client.name, "supports text formatting")
                         -- Format the current buffer on save
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = args.buf,
