@@ -16,6 +16,11 @@ return {
             -- Telescope options --
             -----------------------
             ts.setup({
+                defaults = {
+                    file_ignore_patterns = {
+                        "^node_modules/",
+                    },
+                },
                 extensions = {
                     fzf = {},
                 },
