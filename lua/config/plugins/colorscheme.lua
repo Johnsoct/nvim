@@ -23,20 +23,20 @@ return {
 
                 local transparent = true
 
-                if transparent then
-                    vim.cmd([[
-                        highlight Normal guibg=none
-                        highlight NonText guibg=none
-                        highlight Normal ctermbg=none
-                        highlight NonText ctermbg=none
-                    ]])
-                end
-
+                -- if transparent then
+                --     vim.cmd([[
+                --         highlight Normal guibg=none
+                --         highlight NonText guibg=none
+                --         highlight Normal ctermbg=none
+                --         highlight NonText ctermbg=none
+                --     ]])
+                -- end
+                --
                 require("cyberdream").setup({
                     cache = false, -- improve start up time by caching highlights
                     theme = {
                         variant = "default",
-                        saturation = 0.33,
+                        saturation = 0,
                     },
                     transparent = transparent,
                 })
