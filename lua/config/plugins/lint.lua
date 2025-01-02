@@ -22,15 +22,20 @@ return {
                 vue = { "eslint_d" },
             }
 
+            ---------------
+            ---STYLELINT---
+            ---------------
             lint.linters.stylelint.cmd = "stylelint"
             lint.linters.stylelint.stdin = false
             lint.linters.stylelint.args = { "--formatter", "json" }
-            local stylelintOutput = vim.fn.system("stylelint --formatter json " .. vim.fn.expand("%:p"))
-            print("Raw stylelint output:", stylelintOutput)
-            local stylelintParsed = vim.fn.json_decode(stylelintOutput)
-            print("Parsed JSON:", vim.inspect(stylelintParsed))
             lint.linters.stylelint.stream = "both"
             lint.linters.stylelint.ignore_exitcode = true
+
+            -- Testing stylelint and parsed outputs
+            -- local stylelintOutput = vim.fn.system("stylelint --formatter json " .. vim.fn.expand("%:p"))
+            -- print("Raw stylelint output:", stylelintOutput)
+            -- local stylelintParsed = vim.fn.json_decode(stylelintOutput)
+            -- print("Parsed JSON:", vim.inspect(stylelintParsed))
 
             lint.linters.stylelint.parser = function(output, bufnr)
                 local decoded = vim.fn.json_decode(output)
@@ -57,8 +62,8 @@ return {
             vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
                 group = lint_augroup,
                 callback = function()
-                    print("Configured linter for filetype: ", vim.inspect(lint.linters_by_ft[vim.bo.filetype]))
-                    print("Running stylelint for:", vim.fn.expand("%:p"))
+                    -- print("Configured linter for filetype: ", vim.inspect(lint.linters_by_ft[vim.bo.filetype]))
+                    -- print("Running stylelint for (filepath):", vim.fn.expand("%:p"))
 
                     require("lint").try_lint()
                 end,
