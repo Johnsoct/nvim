@@ -58,11 +58,11 @@ local normal_hl = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("StatusLine")),
 local active_bg = normal_hl and darken_color(normal_hl, 0.9) or "#222222"
 
 -- Apply highlight groups dynamically
-vim.api.nvim_set_hl(0, "NormalActive", { bg = active_bg })
-vim.api.nvim_set_hl(0, "InactiveWindow", { bg = normal_hl })
+-- vim.api.nvim_set_hl(0, "NormalActive", { bg = active_bg })
+-- vim.api.nvim_set_hl(0, "InactiveWindow", { bg = normal_hl })
 
 -- Apply winhighlight
-vim.cmd([[set winhighlight=Normal:NormalActive,NormalNC:InactiveWindow]])
+-- vim.cmd([[set winhighlight=Normal:NormalActive,NormalNC:InactiveWindow]])
 
 --------------
 ---QUICKFIX---
