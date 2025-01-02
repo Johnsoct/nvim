@@ -58,10 +58,12 @@ return {
             },
         },
         config = function()
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
+            -- blink.cmp is a performant, batteries-included completion plugin for Neovim
+            local blink = require("blink.cmp").get_lsp_capabilities()
             local lsp = require("lspconfig")
 
-            lsp.lua_ls.setup({ capabilities = capabilities })
+            lsp.lua_ls.setup({ capabilities = blink })
+
             lsp.ts_ls.setup({
                 on_attach = function(client, bufnr)
                     -- Disable tsserver's own diagnostics
@@ -69,13 +71,24 @@ return {
                 end,
             })
 
+            -----------
+            ---CSSLS---
+            -----------
             -- Enable snippet capability for completion
             local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
             csslsCapabilities.textDocument.completion.completionItem.snippetSupport = true
             lsp.cssls.setup({
                 capabilities = csslsCapabilities,
                 filetypes = { "css", "sass", "scss" },
+                on_attach = function(client, bufnr)
+                    -- Disable tsserver's own diagnostics
+                    client.handlers["textDocument/publishDiagnostics"] = function() end
+                end,
             })
+
+            -----------------
+            ---CSS Modules---
+            -----------------
             -- lsp.cssmodules_ls.setup({
             --     filetypes = {
             --         "javascript",
@@ -92,10 +105,17 @@ return {
             --     client.server_capabilities.definitionProvider = false
             -- end,
             -- })
+
+            --------------------
+            ---Web Components---
+            --------------------
             lsp.custom_elements_ls.setup({
                 filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
             })
 
+            ----------------
+            ---LSP Attach---
+            ----------------
             -- Create autocmd on LspAttach: key config entry point for what the lsp will do in any given buffer
             -- i.e. when we attach a file (Editor) and any given language server
             -- (the lack of a buffer argument inside of the {} for LspAttach implies it happens every single

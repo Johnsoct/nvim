@@ -2,6 +2,7 @@
 return {
     {
         "stevearc/conform.nvim",
+        enabled = true,
         opts = {},
         config = function()
             local conform = require("conform")
@@ -24,14 +25,14 @@ return {
                     -- javascript = { "prettierd", "prettier", stop_after_first = true }
 
                     bash = { "shfmt" },
-                    -- css = { "prettierd", "prettier", lsp_format = "fallback" },
+                    css = { "stylelint" },
                     go = { "goimports", "gofumpt" },
                     html = { "djlint" },
                     javascript = { "eslint_d" },
                     json = { "fixjson" },
                     lua = { "stylua" },
                     markdown = { "markdownfmt" },
-                    -- scss = { "prettierd", "prettier", lsp_format = "fallback" },
+                    scss = { "stylelint" },
                     sql = { "sqlfmt" },
                     typescript = { "eslint_d" },
                     vue = { "eslint_d" },
