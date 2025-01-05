@@ -16,8 +16,7 @@ return {
 
                     return {
                         -- These options are passed to conform.format()
-                        timeout_ms = 500,
-                        lsp_format = "fallback",
+                        timeout_ms = 5000,
                     }
                 end,
                 formatters_by_ft = {

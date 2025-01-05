@@ -65,7 +65,7 @@ return {
             lsp.lua_ls.setup({ capabilities = blink })
 
             lsp.ts_ls.setup({
-                on_attach = function(client, bufnr)
+                on_attach = function(client)
                     -- Disable tsserver's own diagnostics
                     client.handlers["textDocument/publishDiagnostics"] = function() end
                 end,
@@ -75,15 +75,32 @@ return {
             ---CSSLS---
             -----------
             -- Enable snippet capability for completion
-            local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
-            csslsCapabilities.textDocument.completion.completionItem.snippetSupport = true
+            -- local csslsCapabilities = vim.lsp.protocol.make_client_capabilities()
+            -- csslsCapabilities.textDocument.completion.completionItem.snippetSupport = true
             lsp.cssls.setup({
-                capabilities = csslsCapabilities,
-                filetypes = { "css", "sass", "scss" },
-                on_attach = function(client, bufnr)
-                    -- Disable tsserver's own diagnostics
-                    client.handlers["textDocument/publishDiagnostics"] = function() end
+                -- capabilities = csslsCapabilities,
+                filetypes = { "css", "less", "scss" },
+                before_init = function(_, config)
+                    config.settings.css.format = false
+                    config.settings.scss.format = false
                 end,
+                on_attach = function(client)
+                    -- Disable cssls' own diagnostics
+                    client.handlers["textDocument/publishDiagnostics"] = function() end
+                    -- Disable cssls formatting - unfortunately, it fucking sucks at formatting
+                    -- expression operators: https://github.com/beautifier/js-beautify/issues/2223
+                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentRangeFormattingProvider = false
+                end,
+            })
+
+            ---------------
+            ---Stylelint---
+            ---------------
+            lsp.stylelint_lsp.setup({
+                autoFixOnFormat = true,
+                autoFixOnSave = true,
+                filetypes = { "css", "scss", "less" },
             })
 
             -----------------
@@ -109,9 +126,9 @@ return {
             --------------------
             ---Web Components---
             --------------------
-            lsp.custom_elements_ls.setup({
-                filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-            })
+            -- lsp.custom_elements_ls.setup({
+            --     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+            -- })
 
             ----------------
             ---LSP Attach---
@@ -132,6 +149,10 @@ return {
                     -- (i.e. only listen to these events (textDocument/formatting) inside of this current buffer
                     -- so you're not calling format on an open file that doesn't have an attached LSP)
                     if client:supports_method("textDocument/formatting") then
+                        if client.name == "cssls" then
+                            client.server_capabilities.documentFormattingProvider = false
+                            client.server_capabilities.documentRangeFormattingProvider = false
+                        end
                         print(client.name, "supports text formatting")
                         -- Format the current buffer on save
                         vim.api.nvim_create_autocmd("BufWritePre", {

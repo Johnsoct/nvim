@@ -7,6 +7,8 @@ return {
         config = function()
             require("nvim-treesitter.configs").setup({
                 -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+                -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+                auto_install = false,
                 ensure_installed = {
                     "bash",
                     "c",
@@ -30,8 +32,6 @@ return {
                     "yaml",
                 },
                 -- Automatically install missing parsers when entering buffer
-                -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-                auto_install = false,
                 highlight = {
                     enable = true,
 
@@ -55,7 +55,12 @@ return {
                     -- Instead of true it can also be a list of languages
                     additional_vim_regex_highlighting = false,
                 },
+                indent = { enable = true },
+                sync_install = false,
             })
+
+            vim.opt.foldmethod = "expr"
+            vim.opt.foldexpr = "nvim-treesitter#foldexpr()"
         end,
     },
 }
