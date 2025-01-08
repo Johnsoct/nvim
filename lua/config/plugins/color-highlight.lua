@@ -74,7 +74,7 @@ return {
                         uppercase = true,
                     },
                     sass = {
-                        enable = true,
+                        enable = false,
                         parsers = {
                             "css",
                         },
