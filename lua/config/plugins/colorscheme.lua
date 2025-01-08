@@ -19,6 +19,10 @@ return {
                 require("tokyonight").setup({
                     dim_inactive = true,
                     styles = {
+                        comments = {
+                            bg = "white",
+                            fg = "#222222",
+                        },
                         floats = transparent and "transparent" or "dark",
                         sidebars = transparent and "transparent" or "dark",
                     },
