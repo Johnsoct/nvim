@@ -62,7 +62,9 @@ return {
             local blink = require("blink.cmp").get_lsp_capabilities()
             local lsp = require("lspconfig")
 
-            lsp.lua_ls.setup({ capabilities = blink })
+            lsp.lua_ls.setup({
+                capabilities = blink,
+            })
 
             lsp.ts_ls.setup({
                 on_attach = function(client)
@@ -153,7 +155,7 @@ return {
                             client.server_capabilities.documentFormattingProvider = false
                             client.server_capabilities.documentRangeFormattingProvider = false
                         end
-                        print(client.name, "supports text formatting")
+                        -- print(client.name, "supports text formatting")
                         -- Format the current buffer on save
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = args.buf,

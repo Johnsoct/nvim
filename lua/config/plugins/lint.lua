@@ -23,6 +23,12 @@ return {
             }
 
             ---------------
+            ---LUA CHECK---
+            ---------------
+            lint.linters.luacheck.cmd = "luacheck"
+            lint.linters.luacheck.args = { "--globals", "vim" }
+
+            ---------------
             ---STYLELINT---
             ---------------
             lint.linters.stylelint.cmd = "stylelint"
