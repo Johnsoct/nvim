@@ -5,7 +5,7 @@ return {
             enabled = true,
             opts = {},
             config = function()
-                local transparent = true
+                local transparent = false
 
                 if transparent then
                     vim.cmd([[
@@ -18,18 +18,21 @@ return {
 
                 require("tokyonight").setup({
                     dim_inactive = true,
+
+                    -- on_colors = function(colors)
+                    --     colors.
                     styles = {
-                        comments = {
-                            bg = "white",
-                            fg = "#222222",
-                        },
-                        floats = transparent and "transparent" or "dark",
-                        sidebars = transparent and "transparent" or "dark",
+                        -- comments = {
+                        --     bg = "white",
+                        --     fg = "#222222",
+                        -- },
+                        -- floats = transparent and "transparent" or "dark",
+                        -- sidebars = transparent and "transparent" or "dark",
                     },
                     transparent = transparent,
                 })
 
-                vim.cmd.colorscheme("tokyonight-storm")
+                vim.cmd.colorscheme("tokyonight-night")
             end,
         },
         {
@@ -52,8 +55,7 @@ return {
 
                 if transparent then
                     vim.cmd([[
-                        highlight Normal guibg=none
-                        highlight NonText guibg=none
+                        highlight Normal guibg=none highlight NonText guibg=none
                         highlight Normal ctermbg=none
                         highlight NonText ctermbg=none
                     ]])

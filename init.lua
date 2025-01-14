@@ -24,7 +24,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("CursorHold", {
     pattern = "*",
     callback = function()
-        vim.diagnostic.open_float({ focusable = false, scope = "line" })
+        -- vim.lsp.util.open_floating_preview.Opts
+        -- offset_x/y
+        -- zindex (defaults to 50)
+        -- anchor_bias: auto, above, below (defaults to auto)
+        vim.diagnostic.open_float({ focusable = false, scope = "line", anchor_bias = "above" })
     end,
 })
 
@@ -48,6 +52,9 @@ vim.opt.termguicolors = true
 ---ACTIVE WINDOW HIGHLIGHTING---
 --------------------------------
 local function darken_color(hex, percent)
+    -- TODO: convert default color theme color values to hex ("NvimLightGrey3")
+    -- print("hex", hex)
+    -- print("percent", percent)
     local r = math.floor(tonumber(tostring(hex):sub(2, 3), 16) * percent)
     local g = math.floor(tonumber(tostring(hex):sub(4, 5), 16) * percent)
     local b = math.floor(tonumber(tostring(hex):sub(6, 7), 16) * percent)
@@ -58,11 +65,11 @@ local normal_hl = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("StatusLine")),
 local active_bg = normal_hl and darken_color(normal_hl, 0.9) or "#222222"
 
 -- Apply highlight groups dynamically
--- vim.api.nvim_set_hl(0, "NormalActive", { bg = active_bg })
--- vim.api.nvim_set_hl(0, "InactiveWindow", { bg = normal_hl })
+vim.api.nvim_set_hl(0, "NormalActive", { bg = active_bg })
+vim.api.nvim_set_hl(0, "InactiveWindow", { bg = normal_hl })
 
 -- Apply winhighlight
--- vim.cmd([[set winhighlight=Normal:NormalActive,NormalNC:InactiveWindow]])
+vim.cmd([[set winhighlight=Normal:NormalActive,NormalNC:InactiveWindow]])
 
 --------------
 ---QUICKFIX---

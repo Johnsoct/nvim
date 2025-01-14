@@ -67,6 +67,7 @@ return {
             })
 
             lsp.ts_ls.setup({
+                capabilities = blink,
                 on_attach = function(client)
                     -- Disable tsserver's own diagnostics
                     client.handlers["textDocument/publishDiagnostics"] = function() end
