@@ -32,7 +32,7 @@ return {
                     transparent = transparent,
                 })
 
-                vim.cmd.colorscheme("tokyonight-night")
+                vim.cmd.colorscheme("tokyonight-storm")
             end,
         },
         {
