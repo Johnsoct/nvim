@@ -28,6 +28,7 @@ return {
                     },
                 },
                 pickers = {
+                    -- TODO: help telescioe.builtin.find_files
                     find_files = {
                         theme = "dropdown",
                     },
