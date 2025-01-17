@@ -21,7 +21,6 @@ return {
                     "marksman",
                     "sqlls",
                     "sqls",
-                    "stylelint",
                     "stylelint_lsp",
                     "ts_ls",
                     "volar",
