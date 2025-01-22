@@ -1,9 +1,11 @@
 return {
     {
         "folke/noice.nvim",
-        enabled = disabled,
+        enabled = false,
         event = "VeryLazy",
-        opts = {},
+        opts = {
+            top_down = false,
+        },
         dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             "MunifTanjim/nui.nvim",
@@ -22,6 +24,18 @@ return {
                         ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
                     },
                 },
+                -- errors = {
+                --     view = "mini",
+                -- },
+                -- message = {
+                --     view = "mini",
+                -- },
+                -- messages = {
+                --     view = "mini",
+                -- },
+                -- notify = {
+                --     view = "mini",
+                -- },
                 -- you can enable a preset for easier configuration
                 presets = {
                     bottom_search = true,         -- use a classic bottom cmdline for search
@@ -41,6 +55,7 @@ return {
                             winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
                         },
                     },
+                    notify = {},
                 },
             })
         end,

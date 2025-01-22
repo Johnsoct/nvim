@@ -22,7 +22,6 @@ return {
                     "sqlls",
                     "sqls",
                     "stylelint_lsp",
-                    "ts_ls",
                     "volar",
                 },
             })
@@ -67,14 +66,15 @@ return {
                 capabilities = blink,
             })
 
-            lsp.ts_ls.setup({
-                capabilities = blink,
-                on_attach = function(client)
-                    -- Disable tsserver's own diagnostics
-                    client.handlers["textDocument/publishDiagnostics"] = function() end
-                end,
-            })
-
+            -- lsp.ts_ls.setup({
+            --     capabilities = blink,
+            --     on_attach = function(client)
+            --         -- Disable tsserver's own diagnostics
+            --         client.handlers["textDocument/publishDiagnostics"] = function() end
+            --         -- client.handlers["textDocument/inlayHint"] = function() end
+            --     end,
+            -- })
+            --
             -----------
             ---CSSLS---
             -----------

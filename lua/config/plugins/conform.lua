@@ -30,7 +30,7 @@ return {
                     javascript = { "eslint_d" },
                     json = { "fixjson" },
                     lua = { "stylua" },
-                    -- markdown = { "markdownfmt" },
+                    markdown = { "marksman" },
                     scss = { "stylelint" },
                     sql = { "sqlfmt" },
                     typescript = { "eslint_d" },

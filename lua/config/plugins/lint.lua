@@ -18,7 +18,7 @@ return {
                 lua = { "luacheck" },
                 markdown = { "markdownlint" },
                 scss = { "stylelint" },
-                typescript = { "eslint_d" },
+                -- typescript = { "eslint_d" },
                 vue = { "eslint_d" },
             }
 
