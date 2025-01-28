@@ -2,7 +2,7 @@ return {
     {
         {
             "folke/tokyonight.nvim",
-            enabled = true,
+            enabled = false,
             opts = {},
             config = function()
                 local transparent = false

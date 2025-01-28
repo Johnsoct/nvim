@@ -1,5 +1,12 @@
 require("config.lazy")
 
+-- Use Vim config as base
+vim.cmd([[
+    set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    let &packpath = &runtimepath
+    source ~/.vimrc
+]])
+
 vim.opt.clipboard = "unnamedplus"
 vim.opt.autoindent = true  -- Enable automatic indentation
 vim.opt.expandtab = true   -- Use spaces instead of tabs
@@ -31,12 +38,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
         vim.diagnostic.open_float({ focusable = false, scope = "line", anchor_bias = "above" })
     end,
 })
-
----------------
---- MOTIONS ---
----------------
-vim.keymap.set("n", "j", "jzz", { desc = "Move down and vertically center" })
-vim.keymap.set("n", "k", "kzz", { desc = "Move up and vertically center" })
 
 ---------------
 ---NVIM-TREE---
