@@ -50,7 +50,7 @@ return {
             local tslg = require("telescope.builtin").live_grep
             local tsgs = require("telescope.builtin").grep_string
             local tsof = require("telescope.builtin").oldfiles
-            local tsqf = require("telescope.builtin").builtin.quickfix
+            local tsqf = require("telescope.builtin").quickfix
 
             --en*
             vim.keymap.set("n", "<space>en", function()
