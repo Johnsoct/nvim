@@ -1,6 +1,17 @@
 return {
     {
         {
+            "catppuccin/nvim",
+            enabled = true,
+            config = function()
+                require("catppuccin").setup({
+                    flavour = "mocha",
+                })
+
+                vim.cmd.colorscheme("catppuccin-mocha")
+            end,
+        },
+        {
             "folke/tokyonight.nvim",
             enabled = false,
             opts = {},

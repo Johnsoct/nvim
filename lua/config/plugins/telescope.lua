@@ -44,12 +44,13 @@ return {
             -----------------------
             -- Telescope keymaps --
             -----------------------
+            local tsb = require("telescope.builtin").buffers
             local tsff = require("telescope.builtin").find_files
             local tsht = require("telescope.builtin").help_tags
-            local tsgs = require("telescope.builtin").grep_string
             local tslg = require("telescope.builtin").live_grep
-            local tsbuffers = require("telescope.builtin").buffers
-            local tsoldfiles = require("telescope.builtin").oldfiles
+            local tsgs = require("telescope.builtin").grep_string
+            local tsof = require("telescope.builtin").oldfiles
+            local tsqf = require("telescope.builtin").builtin.quickfix
 
             --en*
             vim.keymap.set("n", "<space>en", function()
@@ -60,11 +61,12 @@ return {
 
             --f*
             vim.keymap.set("n", "<space><space>", tsht, { desc = "telescope help tags" })
-            vim.keymap.set("n", "<space>fb", tsbuffers, { desc = "telescope open buffers" })
-            vim.keymap.set("n", "<space>ff", tsff, { desc = "telescope find files" })
-            vim.keymap.set("n", "<space>fg", tslg, { desc = "telescope live grep" })
-            vim.keymap.set("n", "<space>fo", tsoldfiles, { desc = "telescope open old files" })
-            vim.keymap.set("n", "<space>fs", tsgs, { desc = "telescope grep string" })
+            vim.keymap.set("n", "<space>tb", tsb, { desc = "telescope open buffers" })
+            vim.keymap.set("n", "<space>tf", tsff, { desc = "telescope find files" })
+            vim.keymap.set("n", "<space>tg", tslg, { desc = "telescope live grep" })
+            vim.keymap.set("n", "<space>to", tsof, { desc = "telescope open old files" })
+            vim.keymap.set("n", "<space>ts", tsgs, { desc = "telescope grep string" })
+            vim.keymap.set("n", "<space>tq", tsqf, { desc = "telescope quickfix" })
 
             --g*
             vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { noremap = true, silent = true })

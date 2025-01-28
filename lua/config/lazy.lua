@@ -34,9 +34,12 @@ require("lazy").setup({
         -- import your plugins
         { import = "config.plugins" },
     },
+    defaults = {
+        lazy = false, -- Do not lazy load plugins
+    },
     -- Configure any other settings here. See the documentation for more details.
     -- colorscheme that will be used when installing plugins.
-    install = { colorscheme = { "cyberdream" } },
+    install = { colorscheme = { "catppuccin-mocha" } },
     -- automatically check for plugin updates
     checker = { enabled = true },
 }, {
