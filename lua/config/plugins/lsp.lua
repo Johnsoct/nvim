@@ -22,6 +22,7 @@ return {
                     "sqlls",
                     "sqls",
                     "stylelint_lsp",
+                    "ts_ls",
                     "volar",
                 },
             })
@@ -66,15 +67,35 @@ return {
                 capabilities = blink,
             })
 
-            -- lsp.ts_ls.setup({
-            --     capabilities = blink,
-            --     on_attach = function(client)
-            --         -- Disable tsserver's own diagnostics
-            --         client.handlers["textDocument/publishDiagnostics"] = function() end
-            --         -- client.handlers["textDocument/inlayHint"] = function() end
-            --     end,
-            -- })
-            --
+            -----------
+            --- TS ----
+            -- --------
+            lsp.ts_ls.setup({
+                capabilities = blink,
+                init_options = {
+                    plugins = {
+                        {
+                            name = "@vue/typescript-plugin",
+                            location = "~/.nvm/versions/node/v22.11.0/lib/node_modules/@vue/language-server",
+                            languages = { "vue" },
+                        },
+                    },
+                },
+                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+            })
+
+            -----------
+            -- VOLAR --
+            -----------
+            lsp.volar.setup({
+                filetypes = { "vue" },
+                init_options = {
+                    vue = {
+                        hybridMode = false,
+                    },
+                },
+            })
+
             -----------
             ---CSSLS---
             -----------
@@ -102,9 +123,14 @@ return {
             ---Stylelint---
             ---------------
             lsp.stylelint_lsp.setup({
-                autoFixOnFormat = true,
-                autoFixOnSave = true,
-                filetypes = { "css", "scss", "less" },
+                settings = {
+                    autoFixOnFormat = true,
+                    autoFixOnSave = true,
+                    filetypes = { "css", "scss", "less" },
+                },
+                stylelintplus = {
+                    -- see available options in stylelint-lsp documentation
+                },
             })
 
             -----------------
@@ -162,14 +188,14 @@ return {
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = args.buf,
                             callback = function()
-                                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                                -- vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
                             end,
                         })
                     end
                 end,
             })
 
-            -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
         end,
     },
 }

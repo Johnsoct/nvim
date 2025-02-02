@@ -3,11 +3,13 @@ return {
     {
         "stevearc/conform.nvim",
         enabled = true,
-        opts = {},
         config = function()
             local conform = require("conform")
 
             conform.setup({
+                default_format_opts = {
+                    lsp_format = "fallback",
+                },
                 format_on_save = function(bufnr)
                     -- Disable with a global or buffer-local variable
                     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
@@ -37,18 +39,6 @@ return {
                     vue = { "eslint_d" },
                 },
             })
-
-            -- Custom formatting options
-            -- conform.formatters.eslint_d = function(bufnr)
-            -- ...
-            -- end,
-            --
-            -- OR you can prepend arguments to the default formatter properties
-            -- conform.formatters.eslint_d = {
-            -- prepend_args = function(self, ctx)
-            -- return { options... }
-            -- end,
-            -- }
 
             vim.api.nvim_create_autocmd("BufWritePre", {
                 pattern = "*",
